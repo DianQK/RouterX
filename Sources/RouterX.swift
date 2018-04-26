@@ -17,6 +17,17 @@ open class Router {
         }
     }
 
+    open func matchURL(_ url: URL) -> Bool {
+        return self.core.matchURL(url) != nil
+    }
+
+    open func matchURLPath(_ urlPath: String) -> Bool {
+        guard let url = URL(string: urlPath) else {
+            return false
+        }
+        return self.matchURL(url)
+    }
+
     open func registerRoutingPattern(_ pattern: String, handler: @escaping MatchRouteHandler) -> Bool {
         let patternIdentifier = pattern.hashValue
         if self.core.registerRoutingPattern(pattern, patternIdentifier: patternIdentifier) {
